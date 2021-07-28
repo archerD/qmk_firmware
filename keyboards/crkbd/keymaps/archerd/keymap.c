@@ -145,23 +145,54 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
-    if ((layer_state & L_GAME_MASK) != 0) {
-        oled_write_ln_P(PSTR("Gaming"), false);
-    } else if ((layer_state & L_FUNC_MASK) != 0) {
-        oled_write_ln_P(PSTR("Function Keys"), false);
-    } else if ((layer_state & L_SYMS_MASK) != 0) {
-        oled_write_ln_P(PSTR("Symbols"), false);
-    } else if ((layer_state & L_NUMS_MASK) != 0) {
-        oled_write_ln_P(PSTR("Numbers"), false);
-    } else if ((layer_state & L_MEDI_MASK) != 0) {
-        oled_write_ln_P(PSTR("Media"), false);
-    } else if ((layer_state & L_MOUS_MASK) != 0) {
-        oled_write_ln_P(PSTR("Mouse"), false);
-    } else if ((layer_state & L_NAVI_MASK) != 0) {
-        oled_write_ln_P(PSTR("Navigation"), false);
-    } else {
-        oled_write_ln_P(PSTR("Letters"), false);
+
+    switch (get_highest_layer(layer_state)) {
+        case L_BASE:
+            oled_write_ln_P(PSTR("Letters"), false);
+            break;
+        case L_NAVI:
+            oled_write_ln_P(PSTR("Navigation"), false);
+            break;
+        case L_MOUS:
+            oled_write_ln_P(PSTR("Mouse"), false);
+            break;
+        case L_MEDI:
+            oled_write_ln_P(PSTR("Media"), false);
+            break;
+        case L_NUMS:
+            oled_write_ln_P(PSTR("Numbers"), false);
+            break;
+        case L_SYMS:
+            oled_write_ln_P(PSTR("Symbols"), false);
+            break;
+        case L_FUNC:
+            oled_write_ln_P(PSTR("Function Keys"), false);
+            break;
+        case L_GAME:
+            oled_write_ln_P(PSTR("Gaming"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Unknown Layer"), false);
     }
+
+    //if ((layer_state & L_GAME_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Gaming"), false);
+    //} else if ((layer_state & L_FUNC_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Function Keys"), false);
+    //} else if ((layer_state & L_SYMS_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Symbols"), false);
+    //} else if ((layer_state & L_NUMS_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Numbers"), false);
+    //} else if ((layer_state & L_MEDI_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Media"), false);
+    //} else if ((layer_state & L_MOUS_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Mouse"), false);
+    //} else if ((layer_state & L_NAVI_MASK) != 0) {
+    //    oled_write_ln_P(PSTR("Navigation"), false);
+    //} else {
+    //    oled_write_ln_P(PSTR("Letters"), false);
+    //}
+
 }
 
 
@@ -191,6 +222,15 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
 
 void oled_render_keylog(void) {
     oled_write(keylog_str, false);
+    oled_write_ln("", false);
+}
+
+void oled_render_led_status(void) {
+    // Host Keyboard LED Status
+    led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
 }
 
 void render_bootmagic_status(bool status) {
@@ -221,6 +261,7 @@ void oled_task_user(void) {
     if (is_master) {
         oled_render_layer_state();
         oled_render_keylog();
+        oled_render_led_status();
     } else {
         oled_render_logo();
     }
