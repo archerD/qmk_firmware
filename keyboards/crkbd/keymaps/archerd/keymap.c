@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
+#include <string.h>
 
 // layers:
 //  base
@@ -174,25 +175,6 @@ void oled_render_layer_state(void) {
         default:
             oled_write_ln_P(PSTR("Unknown Layer"), false);
     }
-
-    //if ((layer_state & L_GAME_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Gaming"), false);
-    //} else if ((layer_state & L_FUNC_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Function Keys"), false);
-    //} else if ((layer_state & L_SYMS_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Symbols"), false);
-    //} else if ((layer_state & L_NUMS_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Numbers"), false);
-    //} else if ((layer_state & L_MEDI_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Media"), false);
-    //} else if ((layer_state & L_MOUS_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Mouse"), false);
-    //} else if ((layer_state & L_NAVI_MASK) != 0) {
-    //    oled_write_ln_P(PSTR("Navigation"), false);
-    //} else {
-    //    oled_write_ln_P(PSTR("Letters"), false);
-    //}
-
 }
 
 
@@ -215,9 +197,15 @@ void set_keylog(uint16_t keycode, keyrecord_t *record) {
   }
 
   // update keylog
-  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
-           record->event.key.row, record->event.key.col,
-           keycode, name);
+  char keylog_str_temp[24] = {};
+  strcpy(keylog_str_temp, get_u8_str(record->event.key.row, '0'));
+  strcat(keylog_str_temp, "x");
+  strcat(keylog_str_temp, get_u8_str(record->event.key.col, '0'));
+  strcat(keylog_str_temp, ", k");
+  strcat(keylog_str_temp, get_u16_str(keycode, '0'));
+  strcat(keylog_str_temp, " : ");
+  strncat(keylog_str_temp, &name, 1);
+  strcpy(keylog_str, keylog_str_temp);
 }
 
 void oled_render_keylog(void) {

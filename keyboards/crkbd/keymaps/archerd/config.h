@@ -20,28 +20,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
-
 //#define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
+// initial configuration for ee_hands requires using the
+// dfu-split-left and dfu-split-right bootloaders
 
-//#define USE_SERIAL_PD2
+/* random stuff */
+//#define FORCE_NKRO
 
-#define TAPPING_FORCE_HOLD
-//#define TAPPING_TERM 100 // defined below
 
+/* rgb light feature configuration */
 #ifdef RGBLIGHT_ENABLE
-    #undef RGBLED_NUM
     #define RGBLIGHT_ANIMATIONS
-    #define RGBLED_NUM 27
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
     #define RGBLIGHT_VAL_STEP 17
 #endif
+
+/* rgb matrix feature configuration */
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -56,57 +55,70 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGB_MATRIX_VAL_STEP 8
 #    define RGB_MATRIX_SPD_STEP 10
 
-/* Disable the animations you don't want/need.  You will need to disable a good number of these    *
+/* Enable the animations you want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
-//#   define DISABLE_RGB_MATRIX_SOLID_COLOR
-#   define DISABLE_RGB_MATRIX_ALPHAS_MODS
-#   define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-#   define DISABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-// #   define DISABLE_RGB_MATRIX_BREATHING
-#   define DISABLE_RGB_MATRIX_BAND_SAT
-#   define DISABLE_RGB_MATRIX_BAND_VAL
-#   define DISABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-#   define DISABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-#   define DISABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-#   define DISABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-// #   define DISABLE_RGB_MATRIX_CYCLE_ALL
-#   define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-// #   define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
-// #   define DISABLE_RGB_MATRIX_CYCLE_OUT_IN
-// #   define DISABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-#   define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-#   define DISABLE_RGB_MATRIX_CYCLE_PINWHEEL
-#   define DISABLE_RGB_MATRIX_CYCLE_SPIRAL
-#   define DISABLE_RGB_MATRIX_DUAL_BEACON
-#   define DISABLE_RGB_MATRIX_RAINBOW_BEACON
-// #   define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-// #   define DISABLE_RGB_MATRIX_RAINDROPS
-#   define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-// #   define DISABLE_RGB_MATRIX_HUE_BREATHING
-// #   define DISABLE_RGB_MATRIX_HUE_PENDULUM
-#   define DISABLE_RGB_MATRIX_HUE_WAVE
-// #   define DISABLE_RGB_MATRIX_TYPING_HEATMAP
-// #   define DISABLE_RGB_MATRIX_DIGITAL_RAIN
-// #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#   define DISABLE_RGB_MATRIX_SOLID_REACTIVE
-#   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-// #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-// #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-#   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-// #   define DISABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#   define DISABLE_RGB_MATRIX_SPLASH
-// #   define DISABLE_RGB_MATRIX_MULTISPLASH
-#   define DISABLE_RGB_MATRIX_SOLID_SPLASH
-// #   define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+#   define ENABLE_RGB_MATRIX_SOLID_COLOR
+//#   define ENABLE_RGB_MATRIX_ALPHAS_MODS
+//#   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
+//#   define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
+//#   define ENABLE_RGB_MATRIX_BREATHING
+//#   define ENABLE_RGB_MATRIX_BAND_SAT
+//#   define ENABLE_RGB_MATRIX_BAND_VAL
+//#   define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
+//#   define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
+//#   define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
+//#   define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
+//#   define ENABLE_RGB_MATRIX_CYCLE_ALL
+//#   define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
+//#   define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
+//#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
+//#   define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
+//#   define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
+//#   define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
+//#   define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
+//#   define ENABLE_RGB_MATRIX_DUAL_BEACON
+//#   define ENABLE_RGB_MATRIX_RAINBOW_BEACON
+//#   define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
+//#   define ENABLE_RGB_MATRIX_RAINDROPS
+//#   define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
+//#   define ENABLE_RGB_MATRIX_HUE_BREATHING
+//#   define ENABLE_RGB_MATRIX_HUE_PENDULUM
+//#   define ENABLE_RGB_MATRIX_HUE_WAVE
+//#   define ENABLE_RGB_MATRIX_PIXEL_FRACTAL
+//#   define ENABLE_RGB_MATRIX_PIXEL_FLOW
+//#   define ENABLE_RGB_MATRIX_PIXEL_RAIN
+#   define ENABLE_RGB_MATRIX_TYPING_HEATMAP
+#   define ENABLE_RGB_MATRIX_DIGITAL_RAIN
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
+//#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
+#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
+//#   define ENABLE_RGB_MATRIX_SPLASH
+//#   define ENABLE_RGB_MATRIX_MULTISPLASH
+//#   define ENABLE_RGB_MATRIX_SOLID_SPLASH
+//#   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
+/* oled configuration */
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_TIMEOUT 60000
 
-// from miryoku config.h
-#pragma once
 
+/* space saving configurations */
+// I do not have a locking switch
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
+// Removes oneshots (I have one for media layer)
+//#define NO_ACTION_ONESHOT
+// restrict the number of layers:
+//#define LAYER_STATE_8BIT
+//#define LAYER_STATE_16BIT
+
+/* from miryoku config.h */
 // default but important
 #define TAPPING_TERM 200
 
