@@ -6,6 +6,7 @@ RGB_MATRIX_ENABLE = yes
 WPM_ENABLE = yes
 MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
+LEADER_ENABLE = yes
 
 # set default bootloader
 BOOTLOADER = qmk-dfu

@@ -107,6 +107,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_TIMEOUT 60000
 
+/* leader settings */
+#define LEADER_TIMEOUT 500
 
 /* space saving configurations */
 // I do not have a locking switch

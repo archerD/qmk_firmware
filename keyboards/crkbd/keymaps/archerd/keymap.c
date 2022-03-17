@@ -40,9 +40,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_BASE] = LAYOUT_split_3x6_3( //default
  //,-----------------------------------------------------------------------------------.    ,-----------------------------------------------------------------------------------.
-            KC_NO,      KC_QUOT,      KC_COMM,       KC_DOT,         KC_P,         KC_Y,              KC_F,         KC_G,         KC_C,         KC_R,         KC_L,   TG(L_GAME),
+       TG(L_NUMS),      KC_QUOT,      KC_COMM,       KC_DOT,         KC_P,         KC_Y,              KC_F,         KC_G,         KC_C,         KC_R,         KC_L,   TG(L_GAME),
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
-            KC_NO, LGUI_T(KC_A), LALT_T(KC_O), LCTL_T(KC_E), LSFT_T(KC_U),         KC_I,              KC_D, LSFT_T(KC_H), LCTL_T(KC_T), LALT_T(KC_N), LGUI_T(KC_S),  OSL(L_MEDI),
+          KC_LEAD, LGUI_T(KC_A), LALT_T(KC_O), LCTL_T(KC_E), LSFT_T(KC_U),         KC_I,              KC_D, LSFT_T(KC_H), LCTL_T(KC_T), LALT_T(KC_N), LGUI_T(KC_S),  OSL(L_MEDI),
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
             KC_NO,      KC_SCLN, RALT_T(KC_Q),         KC_J,         KC_K,         KC_X,              KC_B,         KC_M,         KC_W, RALT_T(KC_V),         KC_Z,        KC_NO,
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
@@ -126,6 +126,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LCTL,  KC_SPC,  KC_ESC,     KC_ENT, KC_BSPC, KC_LGUI
                                       //`--------------------------'  `--------------------------'
             ) };
+
+// leader code
+LEADER_EXTERNS();
+void matrix_scan_user(void) {
+    LEADER_DICTIONARY() {
+        leading = false;
+        leader_end();
+
+        SEQ_ONE_KEY(KC_SPC) {
+            SEND_STRING("Leader Stuff");
+        }
+    }
+}
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -219,6 +232,7 @@ void oled_render_led_status(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    oled_write_P(leading ? PSTR("LDG ") : PSTR("    "), false);
     oled_write_ln("", false);
 }
 
