@@ -137,6 +137,9 @@ void matrix_scan_user(void) {
         SEQ_ONE_KEY(KC_SPC) {
             SEND_STRING("Leader Stuff");
         }
+        SEQ_ONE_KEY(KC_LEAD) {
+            SEND_STRING("Crazy thing");
+        }
     }
 }
 
