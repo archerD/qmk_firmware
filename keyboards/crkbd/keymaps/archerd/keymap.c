@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  numbers
 #define L_NUMS 4
 //  symbols
-#define L_SYMS 5
+#define L_SYMB 5
 //  function and system keys
 #define L_FUNC 6
 //  gaming
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
             KC_NO,      KC_SCLN, RALT_T(KC_Q),         KC_J,         KC_K,         KC_X,              KC_B,         KC_M,         KC_W, RALT_T(KC_V),         KC_Z,        KC_NO,
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
-                                  LT(L_MEDI,KC_ESC),LT(L_NAVI,KC_SPC),LT(L_MOUS,KC_TAB),     LT(L_SYMS,KC_ENT),LT(L_NUMS,KC_BSPC),LT(L_FUNC,KC_DEL)
+                                  LT(L_MEDI,KC_ESC),LT(L_NAVI,KC_SPC),LT(L_MOUS,KC_TAB),     LT(L_SYMB,KC_ENT),LT(L_NUMS,KC_BSPC),LT(L_FUNC,KC_DEL)
                                            //`-----------------------------------------'    `-----------------------------------------'
             ),
     [L_NAVI] = LAYOUT_split_3x6_3( //navigation
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      KC_DOT,         KC_0,      KC_MINS,             KC_NO,        KC_NO,        KC_NO
                                            //`-----------------------------------------'    `-----------------------------------------'
             ),
-    [L_SYMS] = LAYOUT_split_3x6_3( // shifted numbers
+    [L_SYMB] = LAYOUT_split_3x6_3( // shifted numbers
  //,-----------------------------------------------------------------------------------.    ,-----------------------------------------------------------------------------------.
           _______,      KC_LCBR,      KC_EXLM,        KC_AT,      KC_HASH,      KC_RCBR,             KC_NO,        KC_NO,        KC_NO,        KC_NO,        KC_NO,      _______,
  //|-------------+-------------+-------------+-------------+-------------+-------------|    |-------------+-------------+-------------+-------------+-------------+-------------|
@@ -151,15 +151,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   return rotation;
 }
 
-#define L_BASE_MASK (1 << L_BASE)
-#define L_NAVI_MASK (1 << L_NAVI)
-#define L_MOUS_MASK (1 << L_MOUS)
-#define L_MEDI_MASK (1 << L_MEDI)
-#define L_NUMS_MASK (1 << L_NUMS)
-#define L_SYMS_MASK (1 << L_SYMS)
-#define L_FUNC_MASK (1 << L_FUNC)
-#define L_GAME_MASK (1 << L_GAME)
-
 void oled_render_layer_state(void) {
     oled_write_P(PSTR("Layer: "), false);
 
@@ -179,7 +170,7 @@ void oled_render_layer_state(void) {
         case L_NUMS:
             oled_write_ln_P(PSTR("Numbers"), false);
             break;
-        case L_SYMS:
+        case L_SYMB:
             oled_write_ln_P(PSTR("Symbols"), false);
             break;
         case L_FUNC:
