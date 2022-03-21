@@ -30,7 +30,9 @@
 #endif
 
 /* leader settings */
-#define LEADER_TIMEOUT 500
+#define LEADER_PER_KEY_TIMING
+#define LEADER_NO_TIMEOUT
+#define LEADER_TIMEOUT 300
 
 /* space saving configurations */
 // I do not have a locking switch
