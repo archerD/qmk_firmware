@@ -140,7 +140,7 @@ void matrix_scan_user(void) {
         SEQ_ONE_KEY(KC_LEAD) {
             SEND_STRING("Crazy thing");
         }
-        // Print firmware build time Apr 26 202201:30:51
+        // Print firmware build time
         SEQ_TWO_KEYS(KC_B, KC_D) {
             SEND_STRING(__DATE__);
         }

@@ -108,7 +108,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_TIMEOUT 60000
 
 /* leader settings */
-#define LEADER_TIMEOUT 500
+#define LEADER_NO_TIMEOUT
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
 
 /* space saving configurations */
 // I do not have a locking switch
