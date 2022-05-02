@@ -33,6 +33,11 @@
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
 
+// EC11K encoders have a different resolution than other EC11 encoders.
+// When using the default resolution of 4, if you notice your encoder skipping
+// every other tick, lower the resolution to 2.
+#define ENCODER_RESOLUTION 2
+
 /* rgb light config */
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP  8
