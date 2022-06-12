@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
             KC_NO,      KC_SCLN,        KC_Q ,         KC_J,         KC_K,         KC_X,                          KC_B,         KC_M,         KC_W,        KC_V ,         KC_Z,        KC_NO,
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
-                          KC_MUTE,   LT(_MEDI,KC_ESC),LT(_NAVI,KC_SPC),LT(_MOUS,KC_TAB), KC_NO,  KC_NO, LT(_SYMB,KC_ENT),LT(_NUMS,KC_BSPC),LT(_FUNC,KC_DEL), KC_BTN3
+                          KC_MPLY,   LT(_MEDI,KC_ESC),LT(_NAVI,KC_SPC),LT(_MOUS,KC_TAB), KC_NO,  KC_NO, LT(_SYMB,KC_ENT),LT(_NUMS,KC_BSPC),LT(_FUNC,KC_DEL), KC_MUTE
                                            //`-----------------------------------------'                `-----------------------------------------'
     ),
 
@@ -282,16 +282,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Volume control
         if (clockwise) {
-            tap_code(KC_VOLD);
+            tap_code(KC_MNXT);
         } else {
-            tap_code(KC_VOLU);
+            tap_code(KC_MPRV);
         }
     } else if (index == 1) {
         // mouse up/down
         if (clockwise) {
-            tap_code(KC_WH_U);
+            tap_code(KC_VOLU);
         } else {
-            tap_code(KC_WH_D);
+            tap_code(KC_VOLD);
         }
     }
     return false;
