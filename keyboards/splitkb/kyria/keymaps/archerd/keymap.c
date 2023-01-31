@@ -22,16 +22,12 @@
     L24, L25, L26, L27, L28, L29,                     R34, R35, R36, R37, R38, R39, \
                    L40, L41, L42, L43, L44, R45, R46, R47, R48, R49 \
         ) \
-{ \
-    { KC_NO, KC_NO, L05,   L04,   L03,   L02,   L01,   L00   }, \
-    { KC_NO, KC_NO, L17,   L16,   L15,   L14,   L13,   L12   }, \
-    { KC_NO, KC_NO, L29,   L28,   L27,   L26,   L25,   L24   }, \
-    { L44,   L43,   L42,   L41,   KC_NO, L40,   KC_NO, KC_NO }, \
-    { KC_NO, KC_NO, R06,   R07,   R08,   R09,   R10,   R11   }, \
-    { KC_NO, KC_NO, R18,   R19,   R20,   R21,   R22,   R23   }, \
-    { KC_NO, KC_NO, R34,   R35,   R36,   R37,   R38,   R39   }, \
-    { R45,   R46,   R47,   R48,   KC_NO, R49,   KC_NO, KC_NO }, \
-}
+    LAYOUT( \
+    L00, L01, L02, L03, L04, L05,                         R06, R07, R08, R09, R10, R11, \
+    L12, L13, L14, L15, L16, L17,                         R18, R19, R20, R21, R22, R23, \
+    L24, L25, L26, L27, L28, L29,KC_NO,KC_NO,KC_NO,KC_NO, R34, R35, R36, R37, R38, R39, \
+                   L40, L41, L42,  L43,  L44,  R45,  R46, R47, R48, R49 \
+       )
 
 enum layers {
     //_QWERTY = 0,
@@ -152,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //,-----------------------------------------------------------------------------------.                ,-----------------------------------------------------------------------------------.
           _______,       KC_F10,        KC_F1,        KC_F2,        KC_F3,      KC_PAUS,                         KC_NO,        KC_NO,        KC_NO,        KC_NO,        KC_NO,      _______,
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
-          _______,       KC_F11,        KC_F4,        KC_F5,        KC_F6,      KC_SLCK,                         KC_NO,      KC_LSFT,      KC_LCTL,      KC_LALT,      KC_LGUI,      _______,
+          _______,       KC_F11,        KC_F4,        KC_F5,        KC_F6,      KC_SCRL,                         KC_NO,      KC_LSFT,      KC_LCTL,      KC_LALT,      KC_LGUI,      _______,
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
           _______,       KC_F12,        KC_F7,        KC_F8,        KC_F9,      KC_PSCR,                         KC_NO,        KC_NO,        KC_NO,      KC_RALT,        KC_NO,      _______,
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
@@ -229,6 +225,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                _______, _______, _______, _______, _______
 //     ),
 };
+
+/* liatris led disable code (currently using the led as caps lock indicator)
+void keyboard_pre_init_user(void) {
+  // Set liatris led pin as output
+  setPinOutput(24);
+  // Turn the LED off (high is off and low is on)
+  writePinHigh(24);
+}
+ */
 
 /* leader code */
 LEADER_EXTERNS();

@@ -28,22 +28,21 @@
 //#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 #define OLED_TIMEOUT 60000
 
-/* leader settings */
-#define LEADER_NO_TIMEOUT
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 250
-
 // EC11K encoders have a different resolution than other EC11 encoders.
 // When using the default resolution of 4, if you notice your encoder skipping
 // every other tick, lower the resolution to 2.
 #define ENCODER_RESOLUTION 2
+
+// use the power led on the liatris as a caps lock indicator
+#define LED_CAPS_LOCK_PIN 24
+#define LED_PIN_ON_STATE 0
 
 /* rgb light config */
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP  8
 #    define RGBLIGHT_SAT_STEP  8
 #    define RGBLIGHT_VAL_STEP  8
-#    define RGBLIGHT_LIMIT_VAL 150
+//#    define RGBLIGHT_LIMIT_VAL 150
 //#    define RGBLIGHT_ANIMATIONS              // Enable all additional animation modes.
 //#    define RGBLIGHT_EFFECT_ALTERNATING      // Enable alternating animation mode.
 #    define RGBLIGHT_EFFECT_BREATHING        // Enable breathing animation mode.
@@ -119,6 +118,11 @@
 //#   define ENABLE_RGB_MATRIX_SOLID_SPLASH
 //#   define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
+
+/* leader settings */
+#define LEADER_NO_TIMEOUT
+#define LEADER_PER_KEY_TIMING
+#define LEADER_TIMEOUT 250
 
 /* from miryoku config.h */
 // default but important

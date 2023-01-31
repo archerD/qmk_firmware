@@ -1,5 +1,7 @@
 # set default bootloader
 BOOTLOADER = qmk-dfu
+# convert to the rp2040, since using liatris controller
+CONVERT_TO = promicro_rp2040
 
 # enabled featuers
 OLED_ENABLE = yes
