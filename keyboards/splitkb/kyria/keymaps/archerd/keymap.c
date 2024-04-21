@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //,-----------------------------------------------------------------------------------.                ,-----------------------------------------------------------------------------------.
         TG(_NUMS),      KC_QUOT,      KC_COMM,       KC_DOT,         KC_P,         KC_Y,                          KC_F,         KC_G,         KC_C,         KC_R,         KC_L,    TG(_GAME),
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
-          KC_LEAD, LGUI_T(KC_A), LALT_T(KC_O), LCTL_T(KC_E), LSFT_T(KC_U),         KC_I,                          KC_D, LSFT_T(KC_H), LCTL_T(KC_T), LALT_T(KC_N), LGUI_T(KC_S),   OSL(_MEDI),
+          QK_LEAD, LGUI_T(KC_A), LALT_T(KC_O), LCTL_T(KC_E), LSFT_T(KC_U),         KC_I,                          KC_D, LSFT_T(KC_H), LCTL_T(KC_T), LALT_T(KC_N), LGUI_T(KC_S),   OSL(_MEDI),
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
             KC_NO,      KC_SCLN,        KC_Q ,         KC_J,         KC_K,         KC_X,                          KC_B,         KC_M,         KC_W,        KC_V ,         KC_Z,        KC_NO,
  //|-------------+-------------+-------------+-------------+-------------+-------------|                |-------------+-------------+-------------+-------------+-------------+-------------|
@@ -236,47 +236,38 @@ void keyboard_pre_init_user(void) {
  */
 
 /* leader code */
-LEADER_EXTERNS();
-void matrix_scan_user(void) {
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-
-        SEQ_ONE_KEY(KC_SPC) {
-            SEND_STRING("Leader Stuff");
-        }
-        SEQ_ONE_KEY(KC_LEAD) {
-            SEND_STRING("Crazy thing");
-        }
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_SPC)) {
+        SEND_STRING("Leader Stuff");
+    } else if (leader_sequence_one_key(QK_LEAD)) {
+        // do nothing, just exit leader mode.
+    } else if (leader_sequence_two_keys(KC_B, KC_D)) {
         // Print firmware build time
-        SEQ_TWO_KEYS(KC_B, KC_D) {
-            SEND_STRING(__DATE__);
-        }
-        SEQ_TWO_KEYS(KC_B, KC_I) {
-            // adapted https://stackoverflow.com/a/64718070/18362972
-            unsigned int compileYear = (__DATE__[7] - '0') * 1000 + (__DATE__[8] - '0') * 100 + (__DATE__[9] - '0') * 10 + (__DATE__[10] - '0');
-            unsigned int compileMonth = (__DATE__[0] == 'J') ? ((__DATE__[1] == 'a') ? 1 : ((__DATE__[2] == 'n') ? 6 : 7))    // Jan, Jun or Jul
-                : (__DATE__[0] == 'F') ? 2                                                              // Feb
-                : (__DATE__[0] == 'M') ? ((__DATE__[2] == 'r') ? 3 : 5)                                 // Mar or May
-                : (__DATE__[0] == 'A') ? ((__DATE__[1] == 'p') ? 4 : 8)                                 // Apr or Aug
-                : (__DATE__[0] == 'S') ? 9                                                              // Sep
-                : (__DATE__[0] == 'O') ? 10                                                             // Oct
-                : (__DATE__[0] == 'N') ? 11                                                             // Nov
-                : (__DATE__[0] == 'D') ? 12                                                             // Dec
-                : 0;
-            unsigned int compileDay = (__DATE__[4] == ' ') ? (__DATE__[5] - '0') : (__DATE__[4] - '0') * 10 + (__DATE__[5] - '0');
+        SEND_STRING(__DATE__);
+    } else if (leader_sequence_two_keys(KC_B, KC_I)) {
+        // adapted https://stackoverflow.com/a/64718070/18362972
+        unsigned int compileYear = (__DATE__[7] - '0') * 1000 + (__DATE__[8] - '0') * 100 + (__DATE__[9] - '0') * 10 + (__DATE__[10] - '0');
+        unsigned int compileMonth = (__DATE__[0] == 'J') ? ((__DATE__[1] == 'a') ? 1 : ((__DATE__[2] == 'n') ? 6 : 7))    // Jan, Jun or Jul
+            : (__DATE__[0] == 'F') ? 2                                                              // Feb
+            : (__DATE__[0] == 'M') ? ((__DATE__[2] == 'r') ? 3 : 5)                                 // Mar or May
+            : (__DATE__[0] == 'A') ? ((__DATE__[1] == 'p') ? 4 : 8)                                 // Apr or Aug
+            : (__DATE__[0] == 'S') ? 9                                                              // Sep
+            : (__DATE__[0] == 'O') ? 10                                                             // Oct
+            : (__DATE__[0] == 'N') ? 11                                                             // Nov
+            : (__DATE__[0] == 'D') ? 12                                                             // Dec
+            : 0;
+        unsigned int compileDay = (__DATE__[4] == ' ') ? (__DATE__[5] - '0') : (__DATE__[4] - '0') * 10 + (__DATE__[5] - '0');
 
-            char IsoDate[] =
+        char IsoDate[] =
             {   compileYear/1000 + '0', (compileYear % 1000)/100 + '0', (compileYear % 100)/10 + '0', compileYear % 10 + '0',
                 '-',  compileMonth/10 + '0', compileMonth%10 + '0',
                 '-',  compileDay/10 + '0', compileDay%10 + '0',
                 0
             };
 
-            send_string(IsoDate);
-            SEND_STRING("T");
-            SEND_STRING(__TIME__);
-        }
+        send_string(IsoDate);
+        SEND_STRING("T");
+        SEND_STRING(__TIME__);
     }
 }
 
@@ -388,7 +379,7 @@ void oled_render_led_status(void) {
     oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-    oled_write_P(leading ? PSTR("LDG ") : PSTR("    "), false);
+    oled_write_P(leader_sequence_active() ? PSTR("LDG ") : PSTR("    "), false);
     oled_write_ln("", false);
 }
 
