@@ -5,7 +5,7 @@ CONVERT_TO = promicro_rp2040
 
 # enabled featuers
 OLED_ENABLE = yes
-OLED_DRIVER = SSD1306   # Enables the use of OLED displays
+OLED_DRIVER = ssd1306   # Enables the use of OLED displays
 ENCODER_ENABLE = yes       # Enables the use of one or more encoders
 MOUSEKEY_ENABLE = yes # Mouse keys
 EXTRAKEY_ENABLE = yes # Audio control and System control
